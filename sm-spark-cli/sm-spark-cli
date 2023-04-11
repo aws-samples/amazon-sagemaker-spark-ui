@@ -1,0 +1,39 @@
+#!/bin/bash
+
+export SM_SPARK_UI_WORKDIR="$(dirname "$(readlink -f "$0")")"
+
+start() {
+  "$SM_SPARK_UI_WORKDIR/commands/start" "$1"
+}
+stop() {
+  "$SM_SPARK_UI_WORKDIR/commands/stop"
+}
+status() {
+  "$SM_SPARK_UI_WORKDIR/commands/status"
+}
+
+case "$1" in
+  start)
+    start $2
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    status
+    ;;
+  *)
+    cli_name=${0##*/}
+    echo "
+
+  SM Spark CLI
+  Usage: $cli_name [command]
+  Commands:
+    start [a-z][a-z0-9.-]{1,61}[a-z]$   Start Spark History Server
+    stop                                Stop Spark History Server
+    status                              Spark History Server Status
+    *                                   Help
+  "
+    exit 0
+    ;;
+esac

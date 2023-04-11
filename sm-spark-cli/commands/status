@@ -1,0 +1,68 @@
+#!/bin/sh
+
+CURRENTDATE=`date +"%Y-%m-%d %T"`
+RED='\033[0;31m'
+CYAN='\033[1;36m'
+GREEN='\033[1;32m'
+NC='\033[0m'
+PID_FILE=/tmp/spark-sagemaker-user-org.apache.spark.deploy.history.HistoryServer-1.pid
+
+if [[ -f "$PID_FILE" ]] ;
+then
+    PID=$(jq . ${PID_FILE})
+    # Get Studio domain information
+    DOMAIN_ID=$(jq .DomainId /opt/ml/metadata/resource-metadata.json || exit 1)
+    RESOURCE_NAME=$(jq .ResourceName /opt/ml/metadata/resource-metadata.json || exit 1)
+    RESOURCE_ARN=$(jq .ResourceArn /opt/ml/metadata/resource-metadata.json || exit 1)
+
+    # Remove quotes from string
+    DOMAIN_ID=`sed -e 's/^"//' -e 's/"$//' <<< "$DOMAIN_ID"`
+    RESOURCE_NAME=`sed -e 's/^"//' -e 's/"$//' <<< "$RESOURCE_NAME"`
+    RESOURCE_ARN=`sed -e 's/^"//' -e 's/"$//' <<< "$RESOURCE_ARN"`
+    RESOURCE_ARN_ARRAY=($(echo "$RESOURCE_ARN" | tr ':' '\n'))
+
+    # Get Studio domain region
+    REGION=$(echo "${RESOURCE_ARN_ARRAY[3]}")
+
+    # Check if it's Collaborative Space
+    SPACE_NAME=$(jq .SpaceName /opt/ml/metadata/resource-metadata.json || exit 1)
+
+
+    if [ -z "$SPACE_NAME" ] || [ $SPACE_NAME == "null" ] ;
+    then
+        STUDIO_URL="https://${DOMAIN_ID}.studio.${REGION}.sagemaker.aws"
+
+        link="${STUDIO_URL}/jupyter/${RESOURCE_NAME}/proxy/18080"
+    
+        echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Spark History Server is running with PID ${PID}"
+        echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Spark History Server logs: ${PID_FILE}"
+        echo -e "${CYAN}${CURRENTDATE}: [INFO]: ${GREEN}${link}${NC}"
+        exit 0
+    else
+        # Check if Space Id was previously configured
+        if [ -f /tmp/space-metadata.json ]; then
+            SAVED_SPACE_ID=$(jq .SpaceId /tmp/space-metadata.json || exit 1)
+            SAVED_SPACE_ID=`sed -e 's/^"//' -e 's/"$//' <<< "$SAVED_SPACE_ID"`
+
+            if [ -z "$SAVED_SPACE_ID" ] || [ $SAVED_SPACE_ID == "null" ]; then
+                echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Spark History Server is not running"
+                exit 1
+            else
+                STUDIO_URL="https://${SAVED_SPACE_ID}.studio.${REGION}.sagemaker.aws"
+
+                link="${STUDIO_URL}/jupyter/${RESOURCE_NAME}/proxy/18080"
+    
+                echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Spark History Server is running with PID ${PID}"
+                echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Spark History Server logs: ${PID_FILE}"
+                echo -e "${CYAN}${CURRENTDATE}: [INFO]: ${GREEN}${link}${NC}"
+                exit 0
+            fi
+        else
+            echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Spark History Server is not running"
+            exit 1
+        fi
+    fi
+else
+    echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Spark History Server is not running"
+    exit 1
+fi
