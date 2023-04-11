@@ -54,7 +54,7 @@ From a terminal appropriately configured with AWS CLI, run the following command
 curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.1.0/amazon-sagemaker-spark-ui-0.1.0.tar.gz
 tar -xvzf amazon-sagemaker-spark-ui-0.1.0.tar.gz
 
-cd amazon-sagemaker-spark-ui/install-scripts
+cd amazon-sagemaker-spark-ui-0.1.0/install-scripts
 
 LCC_CONTENT=`openssl base64 -A -in install-history-server.sh`
 
@@ -93,10 +93,10 @@ Amazon SageMaker Studio
 curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.1.0/amazon-sagemaker-spark-ui-0.1.0.tar.gz
 tar -xvzf amazon-sagemaker-spark-ui-0.1.0.tar.gz
 
-cd amazon-sagemaker-spark-ui/install-scripts
+cd amazon-sagemaker-spark-ui-0.1.0/install-scripts
 
 chmod +x install-history-server.sh
-. ./install-history-server.sh
+./install-history-server.sh
 ```
 ## sm-spark-cli
 
