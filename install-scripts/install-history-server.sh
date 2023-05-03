@@ -7,12 +7,11 @@ set -eux
 ###############
 #  VARIABLES  #
 ###############
-GLUE_VERSION="3_0"
-SPARK_VERSION="3.1.3"
+GLUE_VERSION="4_0"
+SPARK_VERSION="3.2.4"
 
 EPEL_RELEASE_URL="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
-#SM_SPARKK_CLI='https://github.com/aws-samples/amazon-sagemaker-studio-spark-ui/releases/download/v0.0.1/sm-spark-cli.tar.gz'
-SM_SPARKK_CLI="https://ee-assets-prod-us-east-1.s3.us-east-1.amazonaws.com/modules/aab8e619f53f4d79b65d2272f3ee8de1/v1/releases/sm-spark-cli.tar.gz"
+SM_SPARKK_CLI='https://github.com/aws-samples/amazon-sagemaker-studio-spark-ui/releases/download/v0.0.1/sm-spark-cli.tar.gz'
 
 # Install axel
 cd /tmp
