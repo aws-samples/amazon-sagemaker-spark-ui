@@ -125,7 +125,7 @@ sm-spark-cli start <S3_LOGS_PATH>
 Example:
 
 ```
-sm-spark-cli start spark-demo/logs
+sm-spark-cli start s3://DOC-EXAMPLE-BUCKET/<SPARK_EVENT_LOGS_LOCATION>
 ```
 
 ### Stop Spark History Server
@@ -148,12 +148,16 @@ sm-spark-cli status
 
 ### Accessing the Spark UI
 
-Append /proxy/18080/ to the Studio JL URL.
+Click on the generated link or copy-paste in your web browser
 
 Example:
 
 ```
-https://d-q9rkl9kgioum.studio.eu-west-1.sagemaker.aws/jupyter/default/proxy/18080
+sm-spark-cli status
+
+2023-01-26 23:34:04: [INFO]: Spark History Server is running with PID 5353
+2023-01-26 23:34:04: [INFO]: Spark History Server logs: /tmp/spark-sagemaker-user-org.apache.spark.deploy.history.HistoryServer-1.pid
+2023-01-26 23:34:04: [INFO]: https://d-abc123def45g.studio.eu-west-1.sagemaker.aws/jupyter/default/proxy/18080
 ```
 
 ## Advanced configuration
@@ -169,16 +173,9 @@ The install scripts define the following variables that can be modified to custo
 
 ![Studio Architecture](./images/architecture-studio.png)
 
-## Compatibility
-
-|  | JupyterLab 3 | JupyterLab 1 |
-| --- | --- | --- |
-| SageMaker Studio User Profile | V | V |
-| SageMaker Studio Space Management | V | V |
-
 ## Known limitations
 
-* When using SageMaker Studio, code-server data and configuration are stored in non-persistent volumes. As a consequence, when deleting and re-creating a JupyterServer app for a specific user, the install procedure has to be executed again (either automatically with lifecycle configurations, or manually).
+* When using SageMaker Studio, Spark UI data and configuration are stored in non-persistent volumes. As a consequence, when deleting and re-creating a JupyterServer app for a specific user, the install procedure has to be executed again (either automatically with lifecycle configurations, or manual installation).
 * When running the sm-studio-spark-ui installation through LCC, it requires the download of the `spark-$SPARK_VERSION-bin-without-hadoop.tgz`file, which may require some times. If the installation is taking more than the 5 minutes required by the LCC timeout, please consider to install the solution.
 
 ## Troubleshoot

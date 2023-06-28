@@ -7,10 +7,14 @@ set -eux
 ###############
 #  VARIABLES  #
 ###############
-GLUE_VERSION="4_0"
-SPARK_VERSION="3.2.4"
+SPARK_VERSION="3.3.1"
 
+###############
+#    URLs     #
+###############
 EPEL_RELEASE_URL="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
+GLUE_POM_URL="https://raw.githubusercontent.com/aws-samples/aws-glue-samples/master/utilities/Spark_UI/pom.xml"
+MAVEN_URL="https://archive.apache.org/dist/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz"
 SM_SPARKK_CLI='https://github.com/aws-samples/amazon-sagemaker-studio-spark-ui/releases/download/v0.0.1/sm-spark-cli.tar.gz'
 
 # Install axel
@@ -36,14 +40,14 @@ else
 fi
 
 # Install Maven
-sudo curl -o /opt/apache-maven-3.8.6-bin.tar.gz https://archive.apache.org/dist/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz
+sudo curl -o /opt/apache-maven-3.8.6-bin.tar.gz $MAVEN_URL
 cd /opt
 sudo tar xzvf apache-maven-3.8.6-bin.tar.gz
 export PATH=/opt/apache-maven-3.8.6/bin:$PATH
 
 # Download Maven Project Object Model
 cd /tmp
-curl -O https://raw.githubusercontent.com/aws-samples/aws-glue-samples/master/utilities/Spark_UI/glue-$GLUE_VERSION/pom.xml
+curl -O $GLUE_POM_URL
 
 # Download Spark without Hadoop
 axel -q --output ./spark-$SPARK_VERSION-bin-without-hadoop.tgz --num-connection 10 https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-without-hadoop.tgz
