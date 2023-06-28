@@ -164,7 +164,7 @@ sm-spark-cli status
 
 The install scripts define the following variables that can be modified to customize the install procedure.
 
-- GLUE_VERSION - The version of the glue maven POM for installing the Spark UI. The solution is tested for the version 3_0. For a list of available releases, please check https://github.com/aws-samples/aws-glue-samples/tree/master/utilities/Spark_UI
+- GLUE_POM_URL - The version of the glue maven POM for installing the Spark UI. The solution is using the latest version available. For a list of available releases, please check https://github.com/aws-samples/aws-glue-samples/tree/master/utilities/Spark_UI
 - SPARK_VERSION - Spark Version installed. The solution is tested for the version 3.1.1, For a list of available releases, please check https://archive.apache.org/dist/spark/
 
 ## Architecture
