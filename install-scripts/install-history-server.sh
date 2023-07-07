@@ -16,10 +16,11 @@ EPEL_RELEASE_URL="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.no
 GLUE_POM_URL="https://raw.githubusercontent.com/aws-samples/aws-glue-samples/master/utilities/Spark_UI/pom.xml"
 MAVEN_URL="https://archive.apache.org/dist/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz"
 SM_SPARKK_CLI='https://github.com/aws-samples/amazon-sagemaker-studio-spark-ui/releases/download/v0.0.1/sm-spark-cli.tar.gz'
+SM_SPARK_CORE_UTILS='https://github.com/aws-samples/amazon-sagemaker-studio-spark-ui/releases/download/v0.0.1/utils.js'
 
 # Install axel
 cd /tmp
-sudo yum install -y wget
+sudo yum install -y wget zip
 wget $EPEL_RELEASE_URL
 sudo yum install -y epel-release-latest-*.noarch.rpm
 sudo yum install -y axel
@@ -71,6 +72,16 @@ rm /opt/spark/jars/aws-java-sdk-core-*.jar && \
 rm /opt/spark/jars/aws-java-sdk-kms-*.jar && \
 rm /opt/spark/jars/aws-java-sdk-s3-*.jar && \
 rm /opt/spark/jars/ion-java-1.0.2.jar
+
+# Update utils.js
+mkdir ./tmp_utils
+cd tmp_utils
+mkdir -p org/apache/spark/ui/static
+curl -L $SM_SPARK_CORE_UTILS > ./org/apache/spark/ui/static/utils.js
+spark_core_name=$(find /opt/spark/jars/ -name "spark-core_*")
+jar uf $spark_core_name org/apache/spark/ui/static/utils.js
+cd ..
+rm -rf ./tmp_utils
 
 # Copy CLI scripts
 sudo mkdir -p /opt/sm-spark-cli/bin
