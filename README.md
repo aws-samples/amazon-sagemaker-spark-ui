@@ -177,7 +177,7 @@ The install scripts define the following variables that can be modified to custo
 ## Known limitations
 
 * When using SageMaker Studio, Spark UI data and configuration are stored in non-persistent volumes. As a consequence, when deleting and re-creating a JupyterServer app for a specific user, the install procedure has to be executed again (either automatically with lifecycle configurations, or manual installation).
-* When running the sm-studio-spark-ui installation through LCC, it requires the download of the `spark-$SPARK_VERSION-bin-without-hadoop.tgz`file, which may require some times. If the installation is taking more than the 5 minutes required by the LCC timeout, please consider to install the solution.
+* When running the sm-studio-spark-ui installation through LCC, it requires the download of the `spark-$SPARK_VERSION-bin-without-hadoop.tgz`file, which may require some times. If the installation is taking more than the 5 minutes required by the LCC timeout, please consider to install the solution manually.
 
 ## Troubleshoot
 
