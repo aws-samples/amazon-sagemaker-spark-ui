@@ -112,6 +112,8 @@ else
 -Dspark.hadoop.fs.s3a.aws.credentials.provider=com.amazonaws.auth.ContainerCredentialsProvider -Dspark.history.ui.port=18080 -Dspark.eventLog.enabled=true -Dspark.ui.proxyRedirectUri=${STUDIO_URL}"
 
     ./start-history-server.sh || exit 1
+
+    sleep 5
     
     link="${STUDIO_URL}/jupyter/${RESOURCE_NAME}/proxy/18080"
 
