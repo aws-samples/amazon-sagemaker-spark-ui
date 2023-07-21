@@ -17,6 +17,7 @@ GLUE_POM_URL="https://raw.githubusercontent.com/aws-samples/aws-glue-samples/mas
 MAVEN_URL="https://archive.apache.org/dist/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz"
 SM_SPARKK_CLI='https://github.com/aws-samples/amazon-sagemaker-studio-spark-ui/releases/download/v0.0.1/sm-spark-cli.tar.gz'
 SM_SPARK_CORE_UTILS='https://github.com/aws-samples/amazon-sagemaker-studio-spark-ui/releases/download/v0.0.1/utils.js'
+SM_SPARK_STAGE_PAGE='https://github.com/aws-samples/amazon-sagemaker-studio-spark-ui/releases/download/v0.0.1/stagepage.js'
 
 # Install axel
 cd /tmp
@@ -73,13 +74,15 @@ rm /opt/spark/jars/aws-java-sdk-kms-*.jar && \
 rm /opt/spark/jars/aws-java-sdk-s3-*.jar && \
 rm /opt/spark/jars/ion-java-1.0.2.jar
 
-# Update utils.js
+# Update utils.js and stagepage.js
 mkdir ./tmp_utils
 cd tmp_utils
 mkdir -p org/apache/spark/ui/static
 curl -L $SM_SPARK_CORE_UTILS > ./org/apache/spark/ui/static/utils.js
+curl -L $SM_SPARK_STAGE_PAGE > ./org/apache/spark/ui/static/stagepage.js
 spark_core_name=$(find /opt/spark/jars/ -name "spark-core_*")
 jar uf $spark_core_name org/apache/spark/ui/static/utils.js
+jar uf $spark_core_name org/apache/spark/ui/static/stagepage.js
 cd ..
 rm -rf ./tmp_utils
 
