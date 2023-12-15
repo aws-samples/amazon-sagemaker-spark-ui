@@ -6,7 +6,13 @@ A solution to install and run Spark History Server on Amazon SageMaker Studio an
 
 ## Highlights
 
-This solution works for Amazon SageMaker Studio to run with both JupyterLab 3 (recommended) and JupyterLab 1, and for Spark versions **3.1.1**, **3.1.3**, and **3.3.1**.
+This solution works for:
+* Amazon SageMaker Studio
+* Amazon SageMaker Studio Classic
+    * JupyterLab 3 (recommended)
+    * JupyterLab 1
+
+The solution works for Spark versions **3.1.1**, **3.1.3**, and **3.3.1**.
 
 ## Features - Amazon SageMaker Studio
 
@@ -45,6 +51,46 @@ In both cases we are going to leverage on the following install scripts:
 
 #### Amazon SageMaker Studio
 
+When using Amazon SageMaker Studio, Spark History Server will be installed on the instance that runs the the application. By using [Studio lifecycle configurations](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lcc.html), we can make sure Spark History Server is installed automatically when the application is spin-up, and enable this behavior by default either for all users in the Studio domain or for a specific Studio user profile.
+
+Example: install Spark History Server automatically for all users in the Studio domain
+
+From a terminal appropriately configured with AWS CLI, run the following commands:
+
+```
+curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.2.0/amazon-sagemaker-spark-ui.tar.gz
+tar -xvzf amazon-sagemaker-spark-ui.tar.gz
+
+cd amazon-sagemaker-spark-ui/install-scripts/studio-2.0
+
+LCC_CONTENT=`openssl base64 -A -in install-history-server.sh`
+
+aws sagemaker create-studio-lifecycle-config \
+    --studio-lifecycle-config-name install-spark-ui-on-jupyterserver \
+    --studio-lifecycle-config-content $LCC_CONTENT \
+    --studio-lifecycle-config-app-type JupyterServer \
+    --query 'StudioLifecycleConfigArn'
+
+aws sagemaker update-domain \
+    --region <your_region> \
+    --domain-id <your_domain_id> \
+    --default-user-settings \
+    '{
+    "JupyterServerAppSettings": {
+    "DefaultResourceSpec": {
+    "LifecycleConfigArn": "arn:aws:sagemaker:<your_region>:<your_account_id>:studio-lifecycle-config/install-spark-ui-on-jupyterserver",
+    "InstanceType": "system"
+    },
+    "LifecycleConfigArns": [
+    "arn:aws:sagemaker:<your_region>:<your_account_id>:studio-lifecycle-config/install-spark-ui-on-jupyterserver"
+    ]
+    }}'
+```
+
+Make sure to replace <your_domain_id>, <your_region> and <your_account_id> in the previous commands with the Studio domain ID, the AWS region and AWS Account ID you are using respectively.
+
+#### Amazon SageMaker Studio Classic
+
 When using Amazon SageMaker Studio, Spark History Server must be installed on the instance that runs the JupyterServer application. For further information on the Studio architecture, please refer to [this](https://aws.amazon.com/blogs/machine-learning/dive-deep-into-amazon-sagemaker-studio-notebook-architecture/) blog post. By using [Studio lifecycle configurations](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lcc.html), we can make sure Spark History Server is installed automatically when the JupyterServer application is spin-up, and enable this behavior by default either for all users in the Studio domain or for a specific Studio user profile.
 
 Example: install Spark History Server automatically for all users in the Studio domain
@@ -52,10 +98,10 @@ Example: install Spark History Server automatically for all users in the Studio 
 From a terminal appropriately configured with AWS CLI, run the following commands:
 
 ```
-curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.1.0/amazon-sagemaker-spark-ui-0.1.0.tar.gz
-tar -xvzf amazon-sagemaker-spark-ui-0.1.0.tar.gz
+curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.2.0/amazon-sagemaker-spark-ui.tar.gz
+tar -xvzf amazon-sagemaker-spark-ui.tar.gz
 
-cd amazon-sagemaker-spark-ui-0.1.0/install-scripts
+cd amazon-sagemaker-spark-ui/install-scripts/studio-classic
 
 LCC_CONTENT=`openssl base64 -A -in install-history-server.sh`
 
@@ -85,16 +131,35 @@ Make sure to replace <your_domain_id>, <your_region> and <your_account_id> in th
 
 ### Install manually
 
+#### Amazon SageMaker Studio
+
 Amazon SageMaker Studio
 
 1. Open the Amazon SageMaker Studio system terminal
 2. From the terminal, run the following commands:
 
 ```
-curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.1.0/amazon-sagemaker-spark-ui-0.1.0.tar.gz
-tar -xvzf amazon-sagemaker-spark-ui-0.1.0.tar.gz
+curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.2.0/amazon-sagemaker-spark-ui.tar.gz
+tar -xvzf amazon-sagemaker-spark-ui.tar.gz
 
-cd amazon-sagemaker-spark-ui-0.1.0/install-scripts
+cd amazon-sagemaker-spark-ui/install-scripts/studio-2.0
+
+chmod +x install-history-server.sh
+./install-history-server.sh
+```
+
+#### Amazon SageMaker Studio Classic
+
+Amazon SageMaker Studio
+
+1. Open the Amazon SageMaker Studio system terminal
+2. From the terminal, run the following commands:
+
+```
+curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.2.0/amazon-sagemaker-spark-ui.tar.gz
+tar -xvzf amazon-sagemaker-spark-ui.tar.gz
+
+cd amazon-sagemaker-spark-ui/install-scripts/studio-classic
 
 chmod +x install-history-server.sh
 ./install-history-server.sh

@@ -8,6 +8,7 @@ set -eux
 #  VARIABLES  #
 ###############
 SPARK_VERSION="3.3.1"
+SPARK_CLI_VERSION="v0.2.0"
 
 ###############
 #    URLs     #
@@ -15,9 +16,9 @@ SPARK_VERSION="3.3.1"
 EPEL_RELEASE_URL="https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm"
 GLUE_POM_URL="https://raw.githubusercontent.com/aws-samples/aws-glue-samples/master/utilities/Spark_UI/pom.xml"
 MAVEN_URL="https://archive.apache.org/dist/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz"
-SM_SPARKK_CLI='https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.1.0/sm-spark-cli.tar.gz'
-SM_SPARK_CORE_UTILS='https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.1.0/utils.js'
-SM_SPARK_STAGE_PAGE='https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.1.0/stagepage.js'
+SM_SPARKK_CLI="https://github.com/brunopistone/amazon-sagemaker-spark-ui/releases/download/${SPARK_CLI_VERSION}/sm-spark-cli.tar.gz"
+SM_SPARK_CORE_UTILS="https://github.com/brunopistone/amazon-sagemaker-spark-ui/releases/download/${SPARK_CLI_VERSION}/utils.js"
+SM_SPARK_STAGE_PAGE="https://github.com/brunopistone/amazon-sagemaker-spark-ui/releases/download/${SPARK_CLI_VERSION}/stagepage.js"
 
 # Install axel
 cd /tmp
@@ -92,7 +93,7 @@ sudo mkdir -p /opt/sm-spark-cli/bin
 curl -L $SM_SPARKK_CLI > ./sm-spark-cli.tar.gz
 sudo tar xzvf sm-spark-cli.tar.gz
 
-cd ./sm-spark-cli
+cd ./sm-spark-cli/studio-classic
 sudo cp -r commands /opt/sm-spark-cli/bin/
 sudo cp -r sm-spark-cli /opt/sm-spark-cli/bin/
 
@@ -110,3 +111,6 @@ grep -qxF 'source /etc/bash_completion.d/sm-spark-cli.completion' ~/.bash_profil
 # Add simlink
 cd /usr/bin
 sudo ln -s /opt/sm-spark-cli/bin/sm-spark-cli sm-spark-cli
+
+# Remove tmp files
+sudo rm -rf /tmp/sm-spark-cli /tmp/spark-* /tmp/pom.xml

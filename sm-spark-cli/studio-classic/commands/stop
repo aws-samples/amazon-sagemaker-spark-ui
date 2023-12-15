@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 CURRENTDATE=`date +"%Y-%m-%d %T"`
 RED='\033[0;31m'

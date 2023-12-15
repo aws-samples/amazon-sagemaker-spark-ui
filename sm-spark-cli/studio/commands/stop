@@ -1,0 +1,15 @@
+#!/bin/bash
+
+CURRENTDATE=`date +"%Y-%m-%d %T"`
+RED='\033[0;31m'
+CYAN='\033[1;36m'
+GREEN='\033[1;32m'
+NC='\033[0m'
+
+cd /opt/spark/sbin/
+        
+./stop-history-server.sh || exit 1
+
+echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Spark History Server Stopped"
+
+exit 0
