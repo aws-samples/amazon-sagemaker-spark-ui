@@ -58,17 +58,18 @@ Example: install Spark History Server automatically for all users in the Studio 
 From a terminal appropriately configured with AWS CLI, run the following commands:
 
 ```
-curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.2.0/amazon-sagemaker-spark-ui.tar.gz
+curl -LO https://github.com/brunopistone/amazon-sagemaker-spark-ui/releases/download/v0.2.0/amazon-sagemaker-spark-ui.tar.gz
+
 tar -xvzf amazon-sagemaker-spark-ui.tar.gz
 
-cd amazon-sagemaker-spark-ui/install-scripts/studio-2.0
+cd amazon-sagemaker-spark-ui/install-scripts/studio
 
 LCC_CONTENT=`openssl base64 -A -in install-history-server.sh`
 
 aws sagemaker create-studio-lifecycle-config \
-    --studio-lifecycle-config-name install-spark-ui-on-jupyterserver \
+    --studio-lifecycle-config-name install-spark-ui-on-jupyterlab \
     --studio-lifecycle-config-content $LCC_CONTENT \
-    --studio-lifecycle-config-app-type JupyterServer \
+    --studio-lifecycle-config-app-type JupyterLab \
     --query 'StudioLifecycleConfigArn'
 
 aws sagemaker update-domain \
@@ -76,13 +77,13 @@ aws sagemaker update-domain \
     --domain-id <your_domain_id> \
     --default-user-settings \
     '{
-    "JupyterServerAppSettings": {
+    "JupyterLabAppSettings": {
     "DefaultResourceSpec": {
-    "LifecycleConfigArn": "arn:aws:sagemaker:<your_region>:<your_account_id>:studio-lifecycle-config/install-spark-ui-on-jupyterserver",
-    "InstanceType": "system"
+    "LifecycleConfigArn": "arn:aws:sagemaker:<your_region>:<your_account_id>:studio-lifecycle-config/install-spark-ui-on-jupyterlab",
+    "InstanceType": "ml.t3.medium"
     },
     "LifecycleConfigArns": [
-    "arn:aws:sagemaker:<your_region>:<your_account_id>:studio-lifecycle-config/install-spark-ui-on-jupyterserver"
+    "arn:aws:sagemaker:<your_region>:<your_account_id>:studio-lifecycle-config/install-spark-ui-on-jupyterlab"
     ]
     }}'
 ```
@@ -98,7 +99,8 @@ Example: install Spark History Server automatically for all users in the Studio 
 From a terminal appropriately configured with AWS CLI, run the following commands:
 
 ```
-curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.2.0/amazon-sagemaker-spark-ui.tar.gz
+curl -LO https://github.com/brunopistone/amazon-sagemaker-spark-ui/releases/download/v0.2.0/amazon-sagemaker-spark-ui.tar.gz
+
 tar -xvzf amazon-sagemaker-spark-ui.tar.gz
 
 cd amazon-sagemaker-spark-ui/install-scripts/studio-classic
@@ -139,10 +141,11 @@ Amazon SageMaker Studio
 2. From the terminal, run the following commands:
 
 ```
-curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.2.0/amazon-sagemaker-spark-ui.tar.gz
+curl -LO https://github.com/brunopistone/amazon-sagemaker-spark-ui/releases/download/v0.2.0/amazon-sagemaker-spark-ui.tar.gz
+
 tar -xvzf amazon-sagemaker-spark-ui.tar.gz
 
-cd amazon-sagemaker-spark-ui/install-scripts/studio-2.0
+cd amazon-sagemaker-spark-ui/install-scripts/studio
 
 chmod +x install-history-server.sh
 ./install-history-server.sh
@@ -156,7 +159,8 @@ Amazon SageMaker Studio
 2. From the terminal, run the following commands:
 
 ```
-curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.2.0/amazon-sagemaker-spark-ui.tar.gz
+curl -LO https://github.com/brunopistone/amazon-sagemaker-spark-ui/releases/download/v0.2.0/amazon-sagemaker-spark-ui.tar.gz
+
 tar -xvzf amazon-sagemaker-spark-ui.tar.gz
 
 cd amazon-sagemaker-spark-ui/install-scripts/studio-classic
