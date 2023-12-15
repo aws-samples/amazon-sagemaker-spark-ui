@@ -8,6 +8,7 @@ A solution to install and run Spark History Server on Amazon SageMaker Studio an
 
 This solution works for:
 * Amazon SageMaker Studio
+    * JupyterLab Application
 * Amazon SageMaker Studio Classic
     * JupyterLab 3 (recommended)
     * JupyterLab 1
@@ -24,14 +25,32 @@ The solution works for Spark versions **3.1.1**, **3.1.3**, and **3.3.1**.
 
 ## Screenshots
 
+### SageMaker Studio
+
+#### JupyterLab Application
+
+<table style="{border: none; text-align: center;}" width="70%">
+    <tr>
+        <td><img src="./images/start-spark-ui.png" alt="Start Spark" /></td>
+        <td><img src="./images/stop-spark-ui.png" alt="Stop Spark" /></td>
+    </tr>
+</table>
+
+### SageMaker Studio Classic
+
 <table style="{border: none; text-align: center;}" width="70%">
     <tr>
         <td colspan="2"><img src="./images/install-script.png" alt="Installation" width="70%" /></td>
     </tr>
     <tr>
-        <td><img src="./images/start-spark-ui.png" alt="Start Spark" /></td>
-        <td><img src="./images/stop-spark-ui.png" alt="Stop Spark" /></td>
+        <td><img src="./images/start-spark-ui-classic.png" alt="Start Spark" /></td>
+        <td><img src="./images/stop-spark-ui-classic.png" alt="Stop Spark" /></td>
     </tr>
+</table>
+
+---
+
+<table style="{border: none; text-align: center;}" width="70%">
     <tr>
         <td><img src="./images/job-detail.png" alt="Spark UI" width="70%" /></td>
     </tr>
@@ -49,9 +68,9 @@ In both cases we are going to leverage on the following install scripts:
 
 ### Install with Lifecycle Configurations
 
-#### Amazon SageMaker Studio
+#### Amazon SageMaker Studio: JupyterLab Application
 
-When using Amazon SageMaker Studio, Spark History Server will be installed on the instance that runs the the application. By using [Studio lifecycle configurations](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lcc.html), we can make sure Spark History Server is installed automatically when the application is spin-up, and enable this behavior by default either for all users in the Studio domain or for a specific Studio user profile.
+When using Amazon SageMaker Studio with JupyterLab Applications, Spark History Server will be installed on the instance that runs the the application. By using [Studio lifecycle configurations](https://docs.aws.amazon.com/sagemaker/latest/dg/studio-lcc.html), we can make sure Spark History Server is installed automatically when the application is spin-up, and enable this behavior by default either for all users in the Studio domain or for a specific Studio user profile.
 
 Example: install Spark History Server automatically for all users in the Studio domain
 

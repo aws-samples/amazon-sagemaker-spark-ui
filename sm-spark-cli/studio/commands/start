@@ -25,11 +25,13 @@ else
     ./stop-history-server.sh
 
     # Get Studio domain information
+    APP_TYPE=$(jq .AppType /opt/ml/metadata/resource-metadata.json || exit 1)
     DOMAIN_ID=$(jq .DomainId /opt/ml/metadata/resource-metadata.json || exit 1)
     RESOURCE_NAME=$(jq .ResourceName /opt/ml/metadata/resource-metadata.json || exit 1)
     RESOURCE_ARN=$(jq .ResourceArn /opt/ml/metadata/resource-metadata.json || exit 1)
 
     # Remove quotes from string
+    APP_TYPE=`sed -e 's/^"//' -e 's/"$//' <<< "$APP_TYPE"`
     DOMAIN_ID=`sed -e 's/^"//' -e 's/"$//' <<< "$DOMAIN_ID"`
     RESOURCE_NAME=`sed -e 's/^"//' -e 's/"$//' <<< "$RESOURCE_NAME"`
     RESOURCE_ARN=`sed -e 's/^"//' -e 's/"$//' <<< "$RESOURCE_ARN"`
@@ -71,7 +73,11 @@ else
         while [[ $SPACE_ID = "" ]] ; do
             # If Space Id already configured, skeep the ask
             if [ "$ASK_INPUT" = true ]; then
-                echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Please insert the Space Id from your url. e.g. https://${GREEN}<SPACE_ID>${NC}.studio.${REGION}.sagemaker.aws/jupyterlab/default/lab"
+                if [ "$APP_TYPE" = "CodeEditor" ]; then
+                    echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Please insert the Space Id from your url. e.g. https://${GREEN}<SPACE_ID>${NC}.studio.${REGION}.sagemaker.aws/codeeditor/default/lab"
+                else
+                    echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Please insert the Space Id from your url. e.g. https://${GREEN}<SPACE_ID>${NC}.studio.${REGION}.sagemaker.aws/jupyterlab/default/lab"
+                fi
                 read SPACE_ID
                 SEM=true
             else
@@ -115,7 +121,11 @@ else
 
     sleep 5
     
-    link="${STUDIO_URL}/jupyterlab/${RESOURCE_NAME}/proxy/18080"
+    if [ "$APP_TYPE" = "CodeEditor" ]; then
+        link="${STUDIO_URL}/codeeditor/${RESOURCE_NAME}/proxy/18080"
+    else
+        link="${STUDIO_URL}/jupyterlab/${RESOURCE_NAME}/proxy/18080"
+    fi
 
     echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Spark History Server Started"
     echo -e "${CYAN}${CURRENTDATE}: [INFO]: ${GREEN}${link}${NC}"
