@@ -5,7 +5,7 @@
 set -eux
 
 # Remove installed packages
-sudo yum remove -y axel epel-release jq procps wget
+sudo yum remove -y axel epel-release jq procps
 
 # Remove Java
 sudo yum remove -y java-11-amazon-corretto-headless
@@ -14,14 +14,14 @@ PATH=$(echo "$PATH" | sed -e 's/:\/opt\/apache-maven-3.8.6\/bin$//')
 export PATH=$PATH
 
 # Remove SM Spark CLI
-PATH=$(echo "$PATH" | sed -e 's/:\/opt\/sm-spark-ui$//')
+PATH=$(echo "$PATH" | sed -e 's/:\/opt\/sm-spark-cli$//')
 export PATH=$PATH
 
 # Remove Spark
 sudo rm -rf /opt/spark
 
 # Remove Spark UI CLI
-sudo rm -rf /opt/sm-spark-ui
+sudo rm -rf /opt/sm-spark-cli
 
 # Remove Auto-completion
 sudo rm -rf /etc/bash_completion.d/sm-spark-cli.completion
@@ -33,3 +33,6 @@ fi
 # Remove symlink
 cd /usr/bin
 sudo rm sm-spark-cli
+
+# Remove tmp files
+sudo rm -rf /tmp/sm-spark-cli /tmp/spark-* /tmp/pom.xml
