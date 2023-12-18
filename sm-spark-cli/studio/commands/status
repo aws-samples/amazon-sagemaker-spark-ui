@@ -35,11 +35,7 @@ then
     then
         STUDIO_URL="https://${DOMAIN_ID}.studio.${REGION}.sagemaker.aws"
 
-        if [ "$APP_TYPE" = "CodeEditor" ]; then
-            link="${STUDIO_URL}/codeeditor/${RESOURCE_NAME}/proxy/18080"
-        else
-            link="${STUDIO_URL}/jupyterlab/${RESOURCE_NAME}/proxy/18080"
-        fi
+        link="${STUDIO_URL}/jupyterlab/${RESOURCE_NAME}/proxy/18080"
     
         echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Spark History Server is running with PID ${PID}"
         echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Spark History Server logs: ${LOG_FILE}"
@@ -57,11 +53,7 @@ then
             else
                 STUDIO_URL="https://${SAVED_SPACE_ID}.studio.${REGION}.sagemaker.aws"
 
-                if [ "$APP_TYPE" = "CodeEditor" ]; then
-                    link="${STUDIO_URL}/codeeditor/${RESOURCE_NAME}/proxy/18080"
-                else
-                    link="${STUDIO_URL}/jupyterlab/${RESOURCE_NAME}/proxy/18080"
-                fi
+                link="${STUDIO_URL}/jupyterlab/${RESOURCE_NAME}/proxy/18080"
     
                 echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Spark History Server is running with PID ${PID}"
                 echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Spark History Server logs: ${LOG_FILE}"
