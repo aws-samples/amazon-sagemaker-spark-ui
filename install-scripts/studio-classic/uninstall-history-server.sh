@@ -5,7 +5,7 @@
 set -eux
 
 # Remove installed packages
-sudo yum remove -y axel epel-release jq procps
+sudo yum remove -y jq procps
 
 # Remove Java
 sudo yum remove -y java-11-amazon-corretto-headless

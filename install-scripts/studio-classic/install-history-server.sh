@@ -20,13 +20,9 @@ SM_SPARKK_CLI="https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases
 SM_SPARK_CORE_UTILS="https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/${SPARK_CLI_VERSION}/utils.js"
 SM_SPARK_STAGE_PAGE="https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/${SPARK_CLI_VERSION}/stagepage.js"
 
-# Install axel
+# Install wget
 cd /tmp
 sudo yum install -y wget zip
-wget $EPEL_RELEASE_URL
-sudo yum install -y epel-release-latest-*.noarch.rpm
-sudo yum install -y axel
-sudo rm -rf epel-release-latest-*.noarch.rpm
 
 # Control JupyterLab version
 export AWS_SAGEMAKER_JUPYTERSERVER_IMAGE="${AWS_SAGEMAKER_JUPYTERSERVER_IMAGE:-'jupyter-server-3'}"

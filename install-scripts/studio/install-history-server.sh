@@ -19,9 +19,13 @@ SM_SPARKK_CLI="https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases
 SM_SPARK_CORE_UTILS="https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/${SPARK_CLI_VERSION}/utils.js"
 SM_SPARK_STAGE_PAGE="https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/${SPARK_CLI_VERSION}/stagepage.js"
 
+# Install ca-certificates
+sudo apt-get update
+sudo apt-get -y install ca-certificates
+printf "\nca_directory=/etc/ssl/certs" | sudo tee -a /etc/wgetrc
+
 # Install axel
 cd /tmp
-sudo apt-get update
 sudo apt-get -y install axel gpg jq procps zip
 
 wget -O - https://apt.corretto.aws/corretto.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/corretto-keyring.gpg && \
@@ -40,7 +44,7 @@ cd /tmp
 curl -O $GLUE_POM_URL
 
 # Download Spark without Hadoop
-wget -O ./spark-$SPARK_VERSION-bin-without-hadoop.tgz https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-without-hadoop.tgz
+axel -q --output ./spark-$SPARK_VERSION-bin-without-hadoop.tgz --num-connection 10 https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-without-hadoop.tgz
 
 # Install Spark
 sudo mkdir -p /opt/spark
