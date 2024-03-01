@@ -53,7 +53,7 @@ cd /tmp
 curl -O $GLUE_POM_URL
 
 # Download Spark without Hadoop
-axel -q --output ./spark-$SPARK_VERSION-bin-without-hadoop.tgz --num-connection 10 https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-without-hadoop.tgz
+wget -O ./spark-$SPARK_VERSION-bin-without-hadoop.tgz https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-without-hadoop.tgz
 
 # Install Spark
 sudo mkdir -p /opt/spark
