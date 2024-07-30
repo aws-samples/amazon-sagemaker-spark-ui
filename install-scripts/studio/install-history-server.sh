@@ -8,7 +8,7 @@ set -eux
 #  VARIABLES  #
 ###############
 SPARK_VERSION="3.3.1"
-SPARK_CLI_VERSION="v0.2.0"
+SPARK_CLI_VERSION="v0.3.0"
 
 ###############
 #    URLs     #
@@ -28,10 +28,10 @@ printf "\nca_directory=/etc/ssl/certs" | sudo tee -a /etc/wgetrc
 cd /tmp
 sudo apt-get -y install axel gpg jq procps zip
 
-wget -O - https://apt.corretto.aws/corretto.key | sudo gpg --yes --dearmor -o /usr/share/keyrings/corretto-keyring.gpg && \
+wget -O - https://apt.corretto.aws/corretto.key | sudo gpg --dearmor -o /usr/share/keyrings/corretto-keyring.gpg && \
 echo "deb [signed-by=/usr/share/keyrings/corretto-keyring.gpg] https://apt.corretto.aws stable main" | sudo tee /etc/apt/sources.list.d/corretto.list
 
-sudo apt-get update; sudo apt-get install -y java-17-amazon-corretto-jdk
+sudo apt-get update; sudo apt-get install -y java-22-amazon-corretto-jdk
 
 # Install Maven
 sudo curl -o /opt/apache-maven-3.8.6-bin.tar.gz $MAVEN_URL
@@ -44,7 +44,7 @@ cd /tmp
 curl -O $GLUE_POM_URL
 
 # Download Spark without Hadoop
-axel -q --output ./spark-$SPARK_VERSION-bin-without-hadoop.tgz --num-connection 10 https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-without-hadoop.tgz
+axel -q -k --output ./spark-$SPARK_VERSION-bin-without-hadoop.tgz --num-connection 10 https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-without-hadoop.tgz
 
 # Install Spark
 sudo mkdir -p /opt/spark

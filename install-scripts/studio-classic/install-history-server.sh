@@ -8,7 +8,7 @@ set -eux
 #  VARIABLES  #
 ###############
 SPARK_VERSION="3.3.1"
-SPARK_CLI_VERSION="v0.2.0"
+SPARK_CLI_VERSION="v0.3.0"
 
 ###############
 #    URLs     #
