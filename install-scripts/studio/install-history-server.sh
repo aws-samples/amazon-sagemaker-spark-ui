@@ -7,14 +7,15 @@ set -eux
 ###############
 #  VARIABLES  #
 ###############
-SPARK_VERSION="3.3.1"
+MAVEN_VERSION="3.9.9"
+SPARK_VERSION="3.5.3"
 SPARK_CLI_VERSION="v0.3.0"
 
 ###############
 #    URLs     #
 ###############
 GLUE_POM_URL="https://raw.githubusercontent.com/aws-samples/aws-glue-samples/master/utilities/Spark_UI/pom.xml"
-MAVEN_URL="https://archive.apache.org/dist/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.tar.gz"
+MAVEN_URL="https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
 SM_SPARKK_CLI="https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/${SPARK_CLI_VERSION}/sm-spark-cli.tar.gz"
 SM_SPARK_CORE_UTILS="https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/${SPARK_CLI_VERSION}/utils.js"
 SM_SPARK_STAGE_PAGE="https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/${SPARK_CLI_VERSION}/stagepage.js"
@@ -34,10 +35,10 @@ echo "deb [signed-by=/usr/share/keyrings/corretto-keyring.gpg] https://apt.corre
 sudo apt-get update; sudo apt-get install -y java-22-amazon-corretto-jdk
 
 # Install Maven
-sudo curl -o /opt/apache-maven-3.8.6-bin.tar.gz $MAVEN_URL
+sudo curl -o /opt/apache-maven-${MAVEN_VERSION}-bin.tar.gz $MAVEN_URL
 cd /opt
-sudo tar xzvf apache-maven-3.8.6-bin.tar.gz
-export PATH=/opt/apache-maven-3.8.6/bin:$PATH
+sudo tar xzvf apache-maven-${MAVEN_VERSION}-bin.tar.gz
+export PATH=/opt/apache-maven-$MAVEN_VERSION/bin:$PATH
 
 # Download Maven Project Object Model
 cd /tmp

@@ -98,6 +98,7 @@ function formatLogsCells(execLogs, type) {
 function getStandAloneAppId(cb) {
   var words = getBaseURI().split('/');
   var ind = words.indexOf("history");
+  var appId;
   if (ind > 0) {
     var appId = words[ind + 1];
     cb(appId);
@@ -105,7 +106,7 @@ function getStandAloneAppId(cb) {
   }
   ind = words.indexOf("proxy");
   if (ind > 0) {
-    var appId = words[ind + 1];
+    appId = words[ind + 1];
     cb(appId);
     return;
   }
@@ -174,7 +175,7 @@ function setDataTableDefaults() {
 }
 
 function formatDate(date) {
-  if (date <= 0) return "-";
+  if (!date || date <= 0) return "-";
   else {
     var dt = new Date(date.replace("GMT", "Z"));
     return formatDateString(dt);
