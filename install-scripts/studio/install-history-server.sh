@@ -14,7 +14,7 @@ SPARK_CLI_VERSION="v0.4.0"
 ###############
 #    URLs     #
 ###############
-GLUE_POM_URL="https://raw.githubusercontent.com/aws-samples/aws-glue-samples/master/utilities/Spark_UI/pom.xml"
+GLUE_POM_URL="https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/${SPARK_CLI_VERSION}/pom.xml"
 MAVEN_URL="https://archive.apache.org/dist/maven/maven-3/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
 SM_SPARKK_CLI="https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/${SPARK_CLI_VERSION}/sm-spark-cli.tar.gz"
 SM_SPARK_CORE_UTILS="https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/${SPARK_CLI_VERSION}/utils.js"
@@ -42,7 +42,7 @@ export PATH=/opt/apache-maven-$MAVEN_VERSION/bin:$PATH
 
 # Download Maven Project Object Model
 cd /tmp
-curl -O $GLUE_POM_URL
+curl -L $GLUE_POM_URL > /tmp/pom.xml
 
 # Download Spark without Hadoop
 axel -q -k --output ./spark-$SPARK_VERSION-bin-without-hadoop.tgz --num-connection 10 https://archive.apache.org/dist/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-without-hadoop.tgz
@@ -55,17 +55,8 @@ tar -xzf spark-$SPARK_VERSION-bin-without-hadoop.tgz && \
 mv spark-$SPARK_VERSION-bin-without-hadoop/* /opt/spark && \
 rm spark-$SPARK_VERSION-bin-without-hadoop.tgz
 
+# Install Maven dependencies
 mvn dependency:copy-dependencies -DoutputDirectory=/opt/spark/jars/
-
-rm /opt/spark/jars/jsr305-3.0.0.jar && \
-rm /opt/spark/jars/jersey-*-1.19.jar && \
-rm /opt/spark/jars/jackson-dataformat-cbor-2.6.7.jar && \
-rm /opt/spark/jars/joda-time-2.8.1.jar && \
-rm /opt/spark/jars/jmespath-java-*.jar && \
-rm /opt/spark/jars/aws-java-sdk-core-*.jar && \
-rm /opt/spark/jars/aws-java-sdk-kms-*.jar && \
-rm /opt/spark/jars/aws-java-sdk-s3-*.jar && \
-rm /opt/spark/jars/ion-java-1.0.2.jar
 
 # Update utils.js and stagepage.js
 mkdir ./tmp_utils
@@ -105,4 +96,4 @@ cd /usr/bin
 sudo ln -s /opt/sm-spark-cli/bin/sm-spark-cli sm-spark-cli
 
 # Remove tmp files
-sudo rm -rf /tmp/sm-spark-cli /tmp/spark-* /tmp/pom.xml
+sudo rm -rf /tmp/sm-spark-cli /tmp/spark-* /tmp/pom.xml /tmp/sm-spark-cli.tar.gz ~/.m2/repository/*

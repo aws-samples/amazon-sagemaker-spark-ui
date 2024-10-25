@@ -8,7 +8,7 @@ set -eux
 sudo apt-get remove -y axel gpg jq procps
 
 # Remove Java
-sudo apt-get remove -y java-17-amazon-corretto-jdk
+sudo apt-get remove -y java-22-amazon-corretto-jdk
 
 # Remove additional files
 sudo apt -y autoremove
