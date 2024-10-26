@@ -55,8 +55,12 @@ tar -xzf spark-$SPARK_VERSION-bin-without-hadoop.tgz && \
 mv spark-$SPARK_VERSION-bin-without-hadoop/* /opt/spark && \
 rm spark-$SPARK_VERSION-bin-without-hadoop.tgz
 
-# Install Maven dependencies
 mvn dependency:copy-dependencies -DoutputDirectory=/opt/spark/jars/
+
+rm /opt/spark/jars/avro-*.jar && \
+rm /opt/spark/jars/guava-*.jar && \
+rm /opt/spark/jars/mesos-*.jar && \
+rm /opt/spark/jars/netty-codec-http2*.jar
 
 # Update utils.js and stagepage.js
 mkdir ./tmp_utils
