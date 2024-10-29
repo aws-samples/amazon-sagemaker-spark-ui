@@ -9,7 +9,7 @@ set -eux
 ###############
 MAVEN_VERSION="3.9.9"
 SPARK_VERSION="3.5.3"
-SPARK_CLI_VERSION="v0.4.0"
+SPARK_CLI_VERSION="v0.8.0"
 
 ###############
 #    URLs     #
