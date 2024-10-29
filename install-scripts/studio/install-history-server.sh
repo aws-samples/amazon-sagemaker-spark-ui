@@ -64,8 +64,12 @@ rm -f /opt/spark/jars/protobuf-java-*.jar
 
 mvn dependency:copy-dependencies -DoutputDirectory=/opt/spark/jars/
 
+# YARN not required for Spark History Server
+rm -rf /opt/spark/yarn
+
 # Update spark-defaults.conf.template
 echo "spark.driver.userClassPathFirst           true" | sudo tee -a /opt/spark/conf/spark-defaults.conf.template
+echo "spark.executor.userClassPathFirst         true" | sudo tee -a /opt/spark/conf/spark-defaults.conf.template
 mv /opt/spark/conf/spark-defaults.conf.template /opt/spark/conf/spark-defaults.conf
 
 # Update utils.js and stagepage.js

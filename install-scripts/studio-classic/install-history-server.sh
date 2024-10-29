@@ -69,6 +69,11 @@ rm -f /opt/spark/jars/protobuf-java-*.jar
 
 mvn dependency:copy-dependencies -DoutputDirectory=/opt/spark/jars/
 
+# Update spark-defaults.conf.template
+echo "spark.driver.userClassPathFirst           true" | sudo tee -a /opt/spark/conf/spark-defaults.conf.template
+echo "spark.executor.userClassPathFirst         true" | sudo tee -a /opt/spark/conf/spark-defaults.conf.template
+mv /opt/spark/conf/spark-defaults.conf.template /opt/spark/conf/spark-defaults.conf
+
 # Update utils.js and stagepage.js
 mkdir ./tmp_utils
 cd tmp_utils
