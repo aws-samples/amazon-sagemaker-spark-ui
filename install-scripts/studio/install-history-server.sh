@@ -55,13 +55,18 @@ tar -xzf spark-$SPARK_VERSION-bin-without-hadoop.tgz && \
 mv spark-$SPARK_VERSION-bin-without-hadoop/* /opt/spark && \
 rm spark-$SPARK_VERSION-bin-without-hadoop.tgz
 
+rm -f /opt/spark/jars/avro-*.jar && \
+rm -f /opt/spark/jars/guava-*.jar && \
+rm -f /opt/spark/jars/ivy-*.jar && \
+rm -f /opt/spark/jars/mesos-*.jar && \
+rm -f /opt/spark/jars/netty-codec-http2*.jar && \
+rm -f /opt/spark/jars/protobuf-java-*.jar
+
 mvn dependency:copy-dependencies -DoutputDirectory=/opt/spark/jars/
 
-rm /opt/spark/jars/avro-*.jar && \
-rm /opt/spark/jars/guava-*.jar && \
-rm /opt/spark/jars/ivy-*.jar && \
-rm /opt/spark/jars/mesos-*.jar && \
-rm /opt/spark/jars/netty-codec-http2*.jar
+# Update spark-defaults.conf.template
+echo "spark.driver.userClassPathFirst           true" | sudo tee -a /opt/spark/conf/spark-defaults.conf.template
+mv /opt/spark/conf/spark-defaults.conf.template /opt/spark/conf/spark-defaults.conf
 
 # Update utils.js and stagepage.js
 mkdir ./tmp_utils

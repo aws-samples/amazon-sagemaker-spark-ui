@@ -60,13 +60,14 @@ tar -xzf spark-$SPARK_VERSION-bin-without-hadoop.tgz && \
 mv spark-$SPARK_VERSION-bin-without-hadoop/* /opt/spark && \
 rm spark-$SPARK_VERSION-bin-without-hadoop.tgz
 
-mvn dependency:copy-dependencies -DoutputDirectory=/opt/spark/jars/
+rm -f /opt/spark/jars/avro-*.jar && \
+rm -f /opt/spark/jars/guava-*.jar && \
+rm -f /opt/spark/jars/ivy-*.jar && \
+rm -f /opt/spark/jars/mesos-*.jar && \
+rm -f /opt/spark/jars/netty-codec-http2*.jar && \
+rm -f /opt/spark/jars/protobuf-java-*.jar
 
-rm /opt/spark/jars/avro-*.jar && \
-rm /opt/spark/jars/guava-*.jar && \
-rm /opt/spark/jars/ivy-*.jar && \
-rm /opt/spark/jars/mesos-*.jar && \
-rm /opt/spark/jars/netty-codec-http2*.jar
+mvn dependency:copy-dependencies -DoutputDirectory=/opt/spark/jars/
 
 # Update utils.js and stagepage.js
 mkdir ./tmp_utils
