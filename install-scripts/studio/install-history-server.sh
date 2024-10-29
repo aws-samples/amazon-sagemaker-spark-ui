@@ -67,6 +67,16 @@ mvn dependency:copy-dependencies -DoutputDirectory=/opt/spark/jars/
 # YARN not required for Spark History Server
 rm -rf /opt/spark/yarn
 
+# Change guava dependency version
+GUAVA_VERSION=$(grep -oP '<guava\.version>\K[^<]+' /tmp/pom.xml)
+spark_network_common_name=$(find /opt/spark/jars/ -name "spark-network-common_*")
+jar xf $spark_network_common_name
+sed -i '/<parent>/,/<\/parent>/ s|<version>[0-9.]\+</version>|<version>'"$GUAVA_VERSION"'</version>|' META-INF/maven/com.google.guava/guava/pom.xml
+sed -i "s/^version=.*/version=$GUAVA_VERSION/" META-INF/maven/com.google.guava/guava/pom.properties
+jar uf $spark_network_common_name META-INF/maven/com.google.guava/guava/pom.xml
+jar uf $spark_network_common_name META-INF/maven/com.google.guava/guava/pom.properties
+rm -rf META-INF org
+
 # Update spark-defaults.conf.template
 echo "spark.driver.userClassPathFirst           true" | sudo tee -a /opt/spark/conf/spark-defaults.conf.template
 echo "spark.executor.userClassPathFirst         true" | sudo tee -a /opt/spark/conf/spark-defaults.conf.template
