@@ -120,4 +120,4 @@ cd /usr/bin
 sudo ln -s /opt/sm-spark-cli/bin/sm-spark-cli sm-spark-cli
 
 # Remove tmp files
-sudo rm -rf /tmp/sm-spark-cli /tmp/spark-* /tmp/pom.xml /tmp/sm-spark-cli.tar.gz ~/.m2/repository/*
+sudo rm -rf /tmp/sm-spark-cli /tmp/spark-* /tmp/pom.xml /tmp/sm-spark-cli.tar.gz
