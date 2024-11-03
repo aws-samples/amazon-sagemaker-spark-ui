@@ -108,7 +108,7 @@ else
 
     echo -e "${CYAN}${CURRENTDATE}: [INFO]:${NC} Studio Url ${STUDIO_URL}"
     
-    export SPARK_HISTORY_OPTS="-Dspark.history.fs.logDirectory=s3a://${S3_PATH}
+    export SPARK_HISTORY_OPTS="--add-opens java.base/java.lang=ALL-UNNAMED -Dspark.history.fs.logDirectory=s3a://${S3_PATH}
 -Dspark.hadoop.fs.s3a.aws.credentials.provider=com.amazonaws.auth.ContainerCredentialsProvider -Dspark.history.ui.port=18080 -Dspark.eventLog.enabled=true -Dspark.ui.proxyRedirectUri=${STUDIO_URL}"
 
     ./start-history-server.sh || exit 1
