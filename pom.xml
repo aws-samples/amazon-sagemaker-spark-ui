@@ -126,7 +126,7 @@
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
-            <version>${jersey-container.version.version}</version>
+            <version>${jersey-container.version}</version>
         </dependency>
     </dependencies>
 </project>
