@@ -128,5 +128,10 @@
             <artifactId>jersey-container-servlet</artifactId>
             <version>${jersey-container.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey-container.version}</version>
+        </dependency>
     </dependencies>
 </project>
