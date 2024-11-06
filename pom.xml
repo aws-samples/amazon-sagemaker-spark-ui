@@ -22,6 +22,7 @@
         <ivy.version>2.5.2</ivy.version>
         <avro.version>1.12.0</avro.version>
         <guava.version>33.3.1-jre</guava.version>
+        <jersey-container.version>4.0.0-M1</jersey-container.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -121,6 +122,11 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>${jersey-container.version.version}</version>
         </dependency>
     </dependencies>
 </project>
