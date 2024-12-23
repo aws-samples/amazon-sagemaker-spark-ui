@@ -77,7 +77,7 @@ Example: install Spark History Server automatically for all users in the Studio 
 From a terminal appropriately configured with AWS CLI, run the following commands:
 
 ```
-curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/1/amazon-sagemaker-spark-ui.tar.gz
+curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.9.1/amazon-sagemaker-spark-ui.tar.gz
 
 tar -xvzf amazon-sagemaker-spark-ui.tar.gz
 
@@ -160,7 +160,7 @@ Amazon SageMaker Studio
 2. From the terminal, run the following commands:
 
 ```
-curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/1/amazon-sagemaker-spark-ui.tar.gz
+curl -LO https://github.com/aws-samples/amazon-sagemaker-spark-ui/releases/download/v0.9.1/amazon-sagemaker-spark-ui.tar.gz
 
 tar -xvzf amazon-sagemaker-spark-ui.tar.gz
 
