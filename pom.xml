@@ -14,7 +14,7 @@
         <jdk.version>1.22</jdk.version>
         <hadoop.version>3.4.1</hadoop.version>
 		<awssdk.version>1.12.777</awssdk.version>
-        <log4j.version>2.24.1</log4j.version>
+        <log4j.version>2.25.3</log4j.version>
         <jackson.version>2.18.0</jackson.version>
         <mesos.version>1.11.0</mesos.version>
         <protobuf.version>4.28.3</protobuf.version>
