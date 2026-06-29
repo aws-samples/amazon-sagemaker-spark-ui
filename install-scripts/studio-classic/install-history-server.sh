@@ -67,7 +67,7 @@ rm -f /opt/spark/jars/mesos-*.jar && \
 rm -f /opt/spark/jars/netty-codec-http2*.jar && \
 rm -f /opt/spark/jars/protobuf-java-*.jar
 
-mvn dependency:copy-dependencies -DoutputDirectory=/opt/spark/jars/
+mvn dependency:copy-dependencies -DoutputDirectory=/opt/spark/jars/ -DexcludeArtifactIds=log4j-core,log4j-api
 
 # YARN not required for Spark History Server
 rm -rf /opt/spark/yarn
